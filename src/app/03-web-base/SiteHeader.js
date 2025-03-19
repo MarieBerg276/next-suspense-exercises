@@ -3,11 +3,8 @@ import Link from 'next/link';
 
 import { getNavLinks } from '@/helpers/web-base-helpers';
 
-async function SiteHeader() {
-  let navLinks = await getNavLinks();
+function SiteHeader() {
 
-  // Only show the first 4 links in the header.
-  navLinks = navLinks.slice(0, 4);
 
   return (
     <header className="site-header">
@@ -16,22 +13,36 @@ async function SiteHeader() {
       </Link>
       <nav>
         <ol className="header-nav-links">
-          {navLinks.map(
-            ({ slug, label, href, type }) => (
-              <li key={slug}>
-                <Link
-                  href={href}
-                  className={`header-nav-link ${type}`}
-                >
-                  {label}
-                </Link>
-              </li>
-            )
-          )}
+          <React.Suspense>
+            <Links />
+          </React.Suspense>
         </ol>
       </nav>
     </header>
   );
+}
+
+async function Links() {
+  let navLinks = await getNavLinks();
+
+  // Only show the first 4 links in the header.
+  navLinks = navLinks.slice(0, 4);
+  return (
+    <ol>
+      {navLinks.map(
+        ({ slug, label, href, type }) => (
+          <li key={slug}>
+            <Link
+              href={href}
+              className={`header-nav-link ${type}`}
+            >
+              {label}
+            </Link>
+          </li>
+        )
+      )}
+    </ol>
+  )
 }
 
 export default SiteHeader;
