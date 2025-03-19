@@ -49,7 +49,9 @@ function VaporLayout({ children }) {
           </nav>
         </div>
       </header>
-      <main>{children}</main>
+      <main>
+        {children}
+      </main>
       <footer>
         Copyright © 2003-present Vapor Inc. All
         Rights Reserved.

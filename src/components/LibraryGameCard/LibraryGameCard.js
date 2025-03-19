@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LibraryGameCard({ game }) {
+function LibraryGameCard({ game, isPlaceholder }) {
   return (
     <article className="library-game-card">
       <div className="hero-img">
